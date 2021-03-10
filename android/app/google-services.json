@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1060262312778",
+    "project_id": "smart-home-a03e6",
+    "storage_bucket": "smart-home-a03e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060262312778:android:56f6378588ea1058bd1fb3",
+        "android_client_info": {
+          "package_name": "com.smarthome.smart_home_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060262312778-p9t3sra36k19e9kqjb9vjbvhsg6kgf71.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smarthome.smart_home_flutter",
+            "certificate_hash": "47eaadcd7bd9bf9dcfb300033b1a2c010a52adfd"
+          }
+        },
+        {
+          "client_id": "1060262312778-j56748qea500pc4vf3tp4mqsn1itlks4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDFN907PAesTgHWzIoJ_teklOWqe92vIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060262312778-j56748qea500pc4vf3tp4mqsn1itlks4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
