@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_home_flutter/Screens/authScreen.dart';
 import 'package:smart_home_flutter/Services/local_preferences.dart';
 import '../Services/authentication.dart';
 
@@ -20,7 +21,7 @@ class Dashboard extends StatelessWidget {
                 onPressed: (){
                   authService.signOutUser();
                   preferences.setLoginStatus(false);
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AuthScreen()));
                 },
                 child: Text('Sign Out'),
               ),

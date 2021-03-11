@@ -33,7 +33,7 @@ class SmartHome extends StatelessWidget {
       home: FutureBuilder(
         future: preferences.getLoginStatus(),
         builder: (context , snapShot){
-          if(snapShot.connectionState == ConnectionState.active){
+          if(snapShot.connectionState == ConnectionState.done){
             final loginStatus = snapShot.data;
             print(loginStatus);
             return loginStatus == true ? Dashboard() : AuthScreen();
