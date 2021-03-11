@@ -40,4 +40,8 @@ class AuthService {
       return null;
     }
   }
+
+  void signOutUser() {
+    _authServices.signOut();
+  }
 }

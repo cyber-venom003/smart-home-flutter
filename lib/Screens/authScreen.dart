@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_home_flutter/Screens/addRooms.dart';
+import 'package:smart_home_flutter/Screens/homeScreen.dart';
+import 'package:smart_home_flutter/Services/local_preferences.dart';
+import '../Services/authentication.dart';
+import 'package:provider/provider.dart';
 
 class AuthScreen extends StatelessWidget {
   @override
@@ -31,8 +36,16 @@ class AuthScreen extends StatelessWidget {
               ),
               SizedBox(height: 35,),
               TextButton(
-                onPressed: (){
-                  print('Login');
+                onPressed: () async {
+                 try {
+                   final authService = Provider.of<AuthService>(context, listen: false);
+                   final preferences = Provider.of<LocalPreferences>(context, listen: false);
+                   final userId = await authService.signInGoogle();
+                   preferences.setLoginStatus(true);
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => AddRooms()));
+                 } catch (e) {
+                   print(e);
+                 }
                 },
                 child: Container(
                   width: 320,
@@ -60,14 +73,27 @@ class AuthScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 50,),
-              Text(
-                'Already connected? Login here',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      fontSize: 15,
-                      color: Color(0xFF6508DF),
-                    )
+              GestureDetector(
+                onTap: () async {
+                  try {
+                    final authService = Provider.of<AuthService>(context , listen: false);
+                    final preferences = Provider.of<LocalPreferences>(context, listen: false);
+                    final userId = await authService.signInGoogle();
+                    preferences.setLoginStatus(true);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                  } catch (e) {
+                    print(e);
+                  }
+                },
+                child: Text(
+                  'Already connected? Login here',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        fontSize: 15,
+                        color: Color(0xFF6508DF),
+                      )
+                  ),
                 ),
               ),
             ],
