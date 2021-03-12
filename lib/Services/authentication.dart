@@ -3,17 +3,18 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
 
 class UserId {
-  const UserId({@required this.uid , @required this.email , @required this.profilePicURL});
+  const UserId({@required this.uid , @required this.email , @required this.profilePicURL , @required this.isLoggedIn});
   final String uid;
   final String email;
   final String profilePicURL;
+  final bool isLoggedIn;
 }
 
 class AuthService {
   final _authServices = FirebaseAuth.instance;
 
   UserId _userFromFirebase(User user){
-    return user == null ? null : UserId(email: user.email , uid: user.uid , profilePicURL: user.photoURL);
+    return user == null ? null : UserId(email: user.email , uid: user.uid , profilePicURL: user.photoURL , isLoggedIn: true);
   }
 
   UserCredential userCred;

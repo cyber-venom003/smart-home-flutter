@@ -19,7 +19,7 @@ class AddRooms extends StatelessWidget {
               ElevatedButton(
                 onPressed: (){
                   authService.signOutUser();
-                  preferences.setLoginStatus(false);
+                  preferences.saveLoginStatus(false);
                   Navigator.pop(context);
                 },
                 child: Text('Sign Out'),

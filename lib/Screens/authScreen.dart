@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_home_flutter/Screens/addRooms.dart';
 import 'package:smart_home_flutter/Screens/homeScreen.dart';
+import 'package:smart_home_flutter/Services/db_crud.dart';
 import 'package:smart_home_flutter/Services/local_preferences.dart';
 import '../Services/authentication.dart';
 import 'package:provider/provider.dart';
@@ -37,11 +38,17 @@ class AuthScreen extends StatelessWidget {
               SizedBox(height: 35,),
               TextButton(
                 onPressed: () async {
+                 final authService = Provider.of<AuthService>(context, listen: false);
+                 final preferences = Provider.of<LocalPreferences>(context, listen: false);
+                 final db = Provider.of<FireStoreDB>(context, listen: false);
                  try {
-                   final authService = Provider.of<AuthService>(context, listen: false);
-                   final preferences = Provider.of<LocalPreferences>(context, listen: false);
                    final userId = await authService.signInGoogle();
-                   preferences.setLoginStatus(true);
+                   print(userId.email);
+                   db.addDataInDB('users', userId.email , {
+                     "email": userId.email,
+                     "uid": userId.uid,
+                   });
+                   preferences.saveUserDetails(userId);
                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddRooms()));
                  } catch (e) {
                    print(e);
@@ -75,12 +82,12 @@ class AuthScreen extends StatelessWidget {
               SizedBox(height: 50,),
               GestureDetector(
                 onTap: () async {
+                  final authService = Provider.of<AuthService>(context, listen: false);
+                  final preferences = Provider.of<LocalPreferences>(context, listen: false);
                   try {
-                    final authService = Provider.of<AuthService>(context , listen: false);
-                    final preferences = Provider.of<LocalPreferences>(context, listen: false);
                     final userId = await authService.signInGoogle();
-                    preferences.setLoginStatus(true);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard()));
+                    preferences.saveUserDetails(userId);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Dashboard(user: userId,)));
                   } catch (e) {
                     print(e);
                   }

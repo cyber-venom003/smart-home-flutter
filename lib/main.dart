@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:smart_home_flutter/Screens/addRooms.dart';
 import 'package:smart_home_flutter/Screens/authScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_home_flutter/Screens/homeScreen.dart';
-import 'package:smart_home_flutter/Services/local_preferences.dart';
+import './Services/local_preferences.dart';
 import './Services/authentication.dart';
+import './Services/db_crud.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,8 @@ void main() {
     MultiProvider(
       providers: [
         Provider<AuthService>(create: (_) => AuthService()),
-        Provider<LocalPreferences>(create: (_) => LocalPreferences())
+        Provider<LocalPreferences>(create: (_) => LocalPreferences()),
+        Provider<FireStoreDB>(create: (_) => FireStoreDB())
       ],
       child: SmartHome(),
     )
@@ -31,12 +32,12 @@ class SmartHome extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: FutureBuilder(
-        future: preferences.getLoginStatus(),
+        future: preferences.getSavedUser(),
         builder: (context , snapShot){
           if(snapShot.connectionState == ConnectionState.done){
-            final loginStatus = snapShot.data;
-            print(loginStatus);
-            return loginStatus == true ? Dashboard() : AuthScreen();
+            final user = snapShot.data;
+            print(user.email);
+            return user.isLoggedIn == true ? Dashboard(user: user,) : AuthScreen();
           } else {
             return AuthScreen();
           }
