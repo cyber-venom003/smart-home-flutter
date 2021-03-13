@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:smart_home_flutter/Screens/authScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_home_flutter/Screens/homeScreen.dart';
+import 'package:smart_home_flutter/Services/rooms.dart';
 import './Services/local_preferences.dart';
 import './Services/authentication.dart';
 import './Services/db_crud.dart';
@@ -15,7 +16,8 @@ void main() {
       providers: [
         Provider<AuthService>(create: (_) => AuthService()),
         Provider<LocalPreferences>(create: (_) => LocalPreferences()),
-        Provider<FireStoreDB>(create: (_) => FireStoreDB())
+        Provider<FireStoreDB>(create: (_) => FireStoreDB()),
+        ChangeNotifierProvider<Rooms>(create: (_) => Rooms(),)
       ],
       child: SmartHome(),
     )
