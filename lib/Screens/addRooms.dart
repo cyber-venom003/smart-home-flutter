@@ -75,7 +75,7 @@ class AddRooms extends StatelessWidget {
                     padding: EdgeInsets.all(0),
                     onPressed: (){
                       if(roomNameController.text.length != 0){
-                        addRoomInList(roomNameController.text);
+                        addRoomInList(roomNameController.text , context);
                       } else {
                         print('Enter a room name');
                       }
